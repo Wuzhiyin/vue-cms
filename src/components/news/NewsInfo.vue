@@ -10,9 +10,14 @@
         <hr>
         <!-- 内容区域 -->
         <div class="content" v-html="newsinfo.content"></div>
+        <!-- 评论子组件区域 -->
+        <comment-box :id="this.id"></comment-box>
     </div>
 </template>
 <script>
+// 1. 导入 评论子组件
+import comment from "../subcomponents/comment.vue";
+
 export default {
     data() {
             return {
@@ -34,6 +39,10 @@ export default {
                     }
                 });
             }
+        },
+        components: {
+            // 用来注册子组件的节点
+            "comment-box": comment
         }
 };
 </script>
