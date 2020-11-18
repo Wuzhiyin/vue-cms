@@ -5,12 +5,12 @@
         <textarea placeholder="请输入要BB的内容（做多吐槽120字）" maxlength="120"></textarea>
         <mt-button type="primary" size="large">发表评论</mt-button>
         <div class="cmt-list">
-            <div class="cmt-item">
+            <div class="cmt-item" v-for="(item, i) in comments" :key="item.add_time">
                 <div class="cmt-title">
-                    第1楼&nbsp;&nbsp;用户：李白&nbsp;&nbsp;发表时间：2020-12-12 12:12:12
+                    第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;&nbsp;发表时间：{{ item.add_time | dateFormat }}
                 </div>
                 <div class="cmt-body">
-                    666666
+                    {{ item.content === 'undefined' ? '此用户很懒，嘛都没说': item.content }}
                 </div>
             </div>
         </div>
@@ -18,6 +18,37 @@
     </div>
 </template>
 <script>
+import {
+    Toast
+} from "mint-ui";
+export default {
+    data() {
+            return {
+                pageIndex: 1, // 默认展示第一页数据
+                comments: [] // 所有的评论数据
+            };
+        },
+        created() {
+            this.getComments();
+        },
+        methods: {
+            getComments() {
+                // 获取评论
+                this.$http
+                    .get("api/getcomments/" + this.id + "?pageindex=" + this.pageIndex)
+                    .then(result => {
+                        if (result.body.status === 0) {
+                            // this.comments = result.body.message;
+                            // 每当获取新评论数据的时候，不要把老数据清空覆盖，而是应该以老数据，拼接上新数据
+                            this.comments = this.comments.concat(result.body.message);
+                        } else {
+                            Toast("获取评论失败！");
+                        }
+                    });
+            }
+        },
+        props: ["id"]
+};
 </script>
 <style lang="scss" scoped>
 .cmt-container {
