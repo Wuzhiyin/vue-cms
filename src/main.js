@@ -36,6 +36,7 @@ Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
 
+
 // 1.3 导入自己的 router.js 路由模块
 import router from './router.js'
 
