@@ -30,6 +30,26 @@
     </div>
 </template>
 <script>
+export default {
+    data() {
+            return {
+                id: this.$route.params.id, // 将路由参数对象中的 id 挂载到 data , 方便后期调用
+                lunbotu: [], // 轮播图的数据
+            };
+        },
+        created() {
+            this.getLunbotu();
+        },
+        methods: {
+            getLunbotu() {
+                this.$http.get("api/getthumimages/" + this.id).then(result => {
+                    if (result.body.status === 0) {
+                        this.lunbotu = result.body.message;
+                    }
+                });
+            }
+        }
+};
 </script>
 <style lang="scss" scoped>
 .goodsinfo-container {
