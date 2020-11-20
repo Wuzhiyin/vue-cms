@@ -4,7 +4,7 @@
         <div class="mui-card">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
+                    <swiper :lunbotuList="lunbotu" :isfull="false"></swiper>
                 </div>
             </div>
         </div>
@@ -30,6 +30,9 @@
     </div>
 </template>
 <script>
+// 导入轮播图组件
+import swiper from "../subcomponents/swiper.vue";
+
 export default {
     data() {
             return {
@@ -44,10 +47,17 @@ export default {
             getLunbotu() {
                 this.$http.get("api/getthumimages/" + this.id).then(result => {
                     if (result.body.status === 0) {
+                        // 先循环轮播图数组的每一项，为 item 添加 img 属性，因为 轮播图 组件中，只认识 item.img， 不认识 item.src
+                        result.body.message.forEach(item => {
+                            item.img = item.src;
+                        });
                         this.lunbotu = result.body.message;
                     }
                 });
-            }
+            },
+        },
+        components: {
+            swiper
         }
 };
 </script>
