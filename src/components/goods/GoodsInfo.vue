@@ -10,10 +10,20 @@
         </div>
         <!-- 商品购买区域 -->
         <div class="mui-card">
-            <div class="mui-card-header">页眉</div>
+            <div class="mui-card-header">华为（HUAWEI）荣耀6Plus 16G双4G版</div>
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
+                    <p class="price">
+                        市场价：
+                        <del>￥1299</del>&nbsp;&nbsp;销售价：<span class="now_price">￥9999</span>
+                    </p>
+                    <p>购买数量：
+                        <numbox></numbox>
+                    </p>
+                    <p>
+                        <mt-button type="primary" size="small">立即购买</mt-button>
+                        <mt-button type="danger" size="small">加入购物车</mt-button>
+                    </p>
                 </div>
             </div>
         </div>
@@ -32,6 +42,8 @@
 <script>
 // 导入轮播图组件
 import swiper from "../subcomponents/swiper.vue";
+// 导入 数字选择框 组件
+import numbox from "../subcomponents/goodsinfo_numbox.vue";
 
 export default {
     data() {
@@ -57,7 +69,8 @@ export default {
             },
         },
         components: {
-            swiper
+            swiper,
+            numbox
         }
 };
 </script>
@@ -65,5 +78,16 @@ export default {
 .goodsinfo-container {
     background-color: #eee;
     overflow: hidden;
+    .now_price {
+        color: red;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .mui-card-footer {
+        display: block;
+        button {
+            margin: 15px 0;
+        }
+    }
 }
 </style>
