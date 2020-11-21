@@ -29,13 +29,18 @@
         </div>
         <!-- 商品参数区域 -->
         <div class="mui-card">
-            <div class="mui-card-header">页眉</div>
+            <div class="mui-card-header">商品参数</div>
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
+                    <p>商品货号：{{ goodsinfo.goods_no }}</p>
+                    <p>库存情况：{{ goodsinfo.stock_quantity }}件</p>
+                    <p>上架时间：{{ goodsinfo.add_time | dateFormat }}</p>
                 </div>
             </div>
-            <div class="mui-card-footer">页脚</div>
+            <div class="mui-card-footer">
+                <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
+                <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
+            </div>
         </div>
     </div>
 </template>
@@ -74,6 +79,24 @@ export default {
                 this.$http.get("api/goods/getinfo/" + this.id).then(result => {
                     if (result.body.status === 0) {
                         this.goodsinfo = result.body.message[0];
+                    }
+                });
+            },
+            goDesc(id) {
+                // 点击使用编程式导航跳转到 图文介绍页面
+                this.$router.push({
+                    name: "goodsdesc",
+                    params: {
+                        id
+                    }
+                });
+            },
+            goComment(id) {
+                // 点击跳转到 评论页面
+                this.$router.push({
+                    name: "goodscomment",
+                    params: {
+                        id
                     }
                 });
             },
