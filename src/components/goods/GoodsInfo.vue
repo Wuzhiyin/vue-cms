@@ -10,12 +10,12 @@
         </div>
         <!-- 商品购买区域 -->
         <div class="mui-card">
-            <div class="mui-card-header">华为（HUAWEI）荣耀6Plus 16G双4G版</div>
+            <div class="mui-card-header">{{ goodsinfo.title }}</div>
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
                     <p class="price">
                         市场价：
-                        <del>￥1299</del>&nbsp;&nbsp;销售价：<span class="now_price">￥9999</span>
+                        <del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{ goodsinfo.sell_price }}</span>
                     </p>
                     <p>购买数量：
                         <numbox></numbox>
@@ -50,10 +50,12 @@ export default {
             return {
                 id: this.$route.params.id, // 将路由参数对象中的 id 挂载到 data , 方便后期调用
                 lunbotu: [], // 轮播图的数据
+                goodsinfo: {}, // 获取到的商品的信息
             };
         },
         created() {
             this.getLunbotu();
+            this.getGoodsInfo();
         },
         methods: {
             getLunbotu() {
@@ -64,6 +66,14 @@ export default {
                             item.img = item.src;
                         });
                         this.lunbotu = result.body.message;
+                    }
+                });
+            },
+            getGoodsInfo() {
+                // 获取商品的信息
+                this.$http.get("api/goods/getinfo/" + this.id).then(result => {
+                    if (result.body.status === 0) {
+                        this.goodsinfo = result.body.message[0];
                     }
                 });
             },
