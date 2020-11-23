@@ -42,7 +42,14 @@ var store = new Vuex.Store({
             },
         },
         getters: { // this.$store.getters.***
-
+            // 相当于 计算属性，也相当于 filters
+            getAllCount(state) {
+                var c = 0;
+                state.car.forEach(item => {
+                    c += item.count
+                })
+                return c
+            },
         }
     })
     // 导入格式化时间的插件
