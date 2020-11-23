@@ -44,6 +44,7 @@ var store = new Vuex.Store({
                 // 当 更新 car 之后，把 car 数组，存储到 本地的 localStorage 中
                 localStorage.setItem('car', JSON.stringify(state.car))
             },
+
         },
         getters: { // this.$store.getters.***
             // 相当于 计算属性，也相当于 filters
@@ -53,6 +54,13 @@ var store = new Vuex.Store({
                     c += item.count
                 })
                 return c
+            },
+            getGoodsCount(state) {
+                var o = {}
+                state.car.forEach(item => {
+                    o[item.id] = item.count
+                })
+                return o
             },
         }
     })
