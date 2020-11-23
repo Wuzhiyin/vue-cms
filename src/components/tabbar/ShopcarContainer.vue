@@ -27,7 +27,7 @@
                 <div class="mui-card-content-inner jiesuan">
                     <div class="left">
                         <p>总计（不含运费）</p>
-                        <p>已勾选商品 <span class="red">0</span> 件， 总价 <span class="red">￥0</span></p>
+                        <p>已勾选商品 <span class="red">{{ $store.getters.getGoodsCountAndAmount.count }}</span> 件， 总价 <span class="red">￥{{ $store.getters.getGoodsCountAndAmount.amount }}</span></p>
                     </div>
                     <mt-button type="danger">去结算</mt-button>
                 </div>
@@ -96,7 +96,7 @@ export default {
         }
         img {
             width: 60px;
-            height: 60px;
+            // height: 60px;
         }
         h1 {
             font-size: 13px;
