@@ -5,7 +5,7 @@
             <div class="mui-card" v-for="(item, i) in goodslist" :key="item.id">
                 <div class="mui-card-content">
                     <div class="mui-card-content-inner">
-                        <mt-switch v-model="$store.getters.getGoodsSelected[item.id]"></mt-switch>
+                        <mt-switch v-model="$store.getters.getGoodsSelected[item.id]" @change="selectedChanged(item.id, $store.getters.getGoodsSelected[item.id])"></mt-switch>
                         <img :src="item.thumb_path">
                         <div class="info">
                             <h1>{{ item.title }}</h1>
@@ -71,6 +71,14 @@ export default {
                 this.goodslist.splice(index, 1);
                 this.$store.commit("removeFormCar", id);
             },
+            selectedChanged(id, val) {
+                // 每当点击开关，把最新的 快关状态，同步到 store 中
+                // console.log(id + " --- " + val);
+                this.$store.commit("updateGoodsSelected", {
+                    id,
+                    selected: val
+                });
+            }
         },
         components: {
             numbox
