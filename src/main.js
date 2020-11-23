@@ -85,6 +85,13 @@ var store = new Vuex.Store({
                 })
                 return o
             },
+            getGoodsSelected(state) {
+                var o = {}
+                state.car.forEach(item => {
+                    o[item.id] = item.selected
+                })
+                return o
+            },
         }
     })
     // 导入格式化时间的插件
