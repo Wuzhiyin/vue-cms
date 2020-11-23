@@ -6,7 +6,22 @@ import VueRouter from 'vue-router'
 // 1.2 安装路由
 Vue.use(VueRouter)
 
-// 导入格式化时间的插件
+// 注册 vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+var store = new Vuex.Store({
+        state: { // this.$store.state.***
+            car: [] // 将 购物车中的商品的数据，用一个数组存储起来，在 car 数组中，存储一些商品的对象， 咱们可以暂时将这个商品对象，设计成这个样子   
+                // { id:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
+        },
+        mutations: { // this.$store.commit('方法的名称', '按需传递唯一的参数')
+
+        },
+        getters: { // this.$store.getters.***
+
+        }
+    })
+    // 导入格式化时间的插件
 import moment from 'moment'
 // 定义全局的过滤器
 Vue.filter('dateFormat', function(dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
@@ -50,5 +65,6 @@ import app from './App.vue'
 var vm = new Vue({
     el: '#app',
     render: c => c(app),
-    router // 1.4 挂载路由对象到 VM 实例上
+    router, // 1.4 挂载路由对象到 VM 实例上
+    store // 挂载 store 状态管理对象
 })
